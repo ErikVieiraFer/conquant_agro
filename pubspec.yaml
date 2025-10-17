@@ -1,0 +1,46 @@
+name: conquant_agro
+description: Sistema de Gerenciamento de Fazendas
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # State Management
+  get: ^4.6.6
+  
+  # HTTP & Storage
+  dio: ^5.4.0
+  shared_preferences: ^2.2.2
+  
+  # Bluetooth
+  flutter_blue_plus: ^1.30.0
+  
+  # Charts & Graphs
+  fl_chart: ^0.65.0
+  
+  # PDF Generation
+  pdf: ^3.10.7
+  printing: ^5.11.1
+  
+  # File Handling
+  file_picker: ^6.1.1
+  
+  # Permissions
+  permission_handler: ^11.1.0
+  
+  # Utils
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  build_runner: ^2.4.7
+
+flutter:
+  uses-material-design: true
