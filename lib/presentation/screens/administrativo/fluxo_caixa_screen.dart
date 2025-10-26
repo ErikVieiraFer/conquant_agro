@@ -1,3 +1,4 @@
+import 'package:conquant_agro/presentation/screens/administrativo/forms/transacao_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -144,9 +145,9 @@ class FluxoCaixaScreen extends StatelessWidget {
                 itemCount: transacoes.length,
                 itemBuilder: (context, index) {
                   final transacao = transacoes[index];
-                  final valor = transacao['valor'] as double;
+                  final valor = transacao.valor;
                   final isReceita = valor > 0;
-                  final conciliado = transacao['conciliado'] as bool;
+                  final conciliado = transacao.conciliado;
 
                   return Card(
                     margin: const EdgeInsets.only(bottom: 12),
@@ -161,11 +162,11 @@ class FluxoCaixaScreen extends StatelessWidget {
                         ),
                       ),
                       title: Text(
-                        transacao['descricao'],
+                        transacao.descricao,
                         style: const TextStyle(fontWeight: FontWeight.w500),
                       ),
                       subtitle: Text(
-                        formatDate.format(DateTime.parse(transacao['data'])),
+                        formatDate.format(transacao.data),
                       ),
                       trailing: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -201,11 +202,7 @@ class FluxoCaixaScreen extends StatelessWidget {
                         ],
                       ),
                       onTap: () {
-                        Get.snackbar(
-                          'Em desenvolvimento',
-                          'Detalhes da transação',
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
+                        Get.to(() => TransacaoForm(transacao: transacao));
                       },
                     ),
                   );
@@ -217,11 +214,7 @@ class FluxoCaixaScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.snackbar(
-            'Em desenvolvimento',
-            'Adicionar transação manual',
-            snackPosition: SnackPosition.BOTTOM,
-          );
+          Get.to(() => const TransacaoForm());
         },
         child: const Icon(Icons.add),
       ),
@@ -258,8 +251,8 @@ class FluxoCaixaScreen extends StatelessWidget {
                       value: controller.filtroTipo.value,
                       items: const [
                         DropdownMenuItem(value: 'TODOS', child: Text('Todos')),
-                        DropdownMenuItem(value: 'RECEITA', child: Text('Receitas')),
-                        DropdownMenuItem(value: 'DESPESA', child: Text('Despesas')),
+                        DropdownMenuItem(value: 'receita', child: Text('Receitas')),
+                        DropdownMenuItem(value: 'despesa', child: Text('Despesas')),
                       ],
                       onChanged: (value) {
                         if (value != null) {

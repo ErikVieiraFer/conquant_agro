@@ -1,3 +1,4 @@
+import 'package:conquant_agro/data/models/nota_fiscal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +12,8 @@ class ConciliacaoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(FinanceiroController());
-    final formatCurrency = NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$');
+    final formatCurrency =
+        NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$');
 
     return Scaffold(
       appBar: AppBar(
@@ -106,9 +108,9 @@ class ConciliacaoScreen extends StatelessWidget {
   ) {
     return Obx(() {
       final transacoesPendentes =
-          controller.transacoes.where((t) => t['conciliado'] == false).toList();
+          controller.transacoes.where((t) => !t.conciliado).toList();
       final despesasPendentes =
-          controller.despesas.where((d) => d['conciliado'] == false).toList();
+          controller.despesas.where((d) => !d.conciliado).toList();
 
       return SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -119,7 +121,7 @@ class ConciliacaoScreen extends StatelessWidget {
               titulo: 'Transações Bancárias (${transacoesPendentes.length})',
               cor: Colors.blue,
               children: transacoesPendentes.map((t) {
-                final valor = t['valor'] as double;
+                final valor = t.valor;
                 final isReceita = valor > 0;
 
                 return Card(
@@ -132,13 +134,13 @@ class ConciliacaoScreen extends StatelessWidget {
                       size: 20,
                     ),
                     title: Text(
-                      t['descricao'],
+                      t.descricao,
                       style: const TextStyle(fontSize: 13),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     subtitle: Text(
-                      t['data'],
+                      DateFormat('dd/MM/yyyy').format(t.data),
                       style: const TextStyle(fontSize: 11),
                     ),
                     trailing: Text(
@@ -146,7 +148,8 @@ class ConciliacaoScreen extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
-                        color: isReceita ? AppColors.receita : AppColors.despesa,
+                        color:
+                            isReceita ? AppColors.receita : AppColors.despesa,
                       ),
                     ),
                   ),
@@ -207,7 +210,7 @@ class ConciliacaoScreen extends StatelessWidget {
               titulo: 'Despesas (${despesasPendentes.length})',
               cor: Colors.orange,
               children: despesasPendentes.map((d) {
-                final valor = d['valor'] as double;
+                final valor = d.valor;
 
                 return Card(
                   margin: const EdgeInsets.only(bottom: 8),
@@ -219,13 +222,13 @@ class ConciliacaoScreen extends StatelessWidget {
                       size: 20,
                     ),
                     title: Text(
-                      d['descricao'],
+                      d.descricao,
                       style: const TextStyle(fontSize: 13),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     subtitle: Text(
-                      d['data'],
+                      DateFormat('dd/MM/yyyy').format(d.data),
                       style: const TextStyle(fontSize: 11),
                     ),
                     trailing: Text(
@@ -249,7 +252,7 @@ class ConciliacaoScreen extends StatelessWidget {
               cor: Colors.green,
               children: const [
                 Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: Center(
                     child: Text(
                       'Nenhum item vinculado ainda',
@@ -312,8 +315,7 @@ class ConciliacaoScreen extends StatelessWidget {
 
             // Lista de NFs
             ...nfsPendentes.map((nf) {
-              final tipo = nf['tipo'] as String;
-              final isEntrada = tipo == 'ENTRADA';
+              final isEntrada = nf.tipo == TipoNotaFiscal.entrada;
 
               return Card(
                 margin: const EdgeInsets.only(bottom: 12),
@@ -323,11 +325,11 @@ class ConciliacaoScreen extends StatelessWidget {
                     color: isEntrada ? AppColors.receita : AppColors.despesa,
                   ),
                   title: Text(
-                    'NF ${nf['numero']} - ${nf['emitente']}',
+                    'NF ${nf.numero} - ${nf.razaoSocialEmitente}',
                     style: const TextStyle(fontSize: 14),
                   ),
                   subtitle: Text(
-                    formatCurrency.format(nf['valor_total']),
+                    formatCurrency.format(nf.valorTotal),
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   trailing: PopupMenuButton<String>(

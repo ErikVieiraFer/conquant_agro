@@ -1,3 +1,5 @@
+import 'package:conquant_agro/data/models/nota_fiscal.dart';
+import 'package:conquant_agro/presentation/screens/administrativo/forms/nota_fiscal_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -88,18 +90,18 @@ class NotasFiscaisScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: _buildFiltroChip(
-                        'ENTRADA',
+                        'entrada',
                         'Entradas',
-                        controller.filtroTipo.value == 'ENTRADA',
-                        () => controller.filtroTipo.value = 'ENTRADA',
+                        controller.filtroTipo.value == 'entrada',
+                        () => controller.filtroTipo.value = 'entrada',
                       ),
                     ),
                     Expanded(
                       child: _buildFiltroChip(
-                        'SAIDA',
+                        'saida',
                         'Saídas',
-                        controller.filtroTipo.value == 'SAIDA',
-                        () => controller.filtroTipo.value = 'SAIDA',
+                        controller.filtroTipo.value == 'saida',
+                        () => controller.filtroTipo.value = 'saida',
                       ),
                     ),
                   ],
@@ -122,9 +124,8 @@ class NotasFiscaisScreen extends StatelessWidget {
                 itemCount: notasFiscais.length,
                 itemBuilder: (context, index) {
                   final nf = notasFiscais[index];
-                  final tipo = nf['tipo'] as String;
-                  final isEntrada = tipo == 'ENTRADA';
-                  final valor = nf['valor_total'] as double;
+                  final isEntrada = nf.tipo == TipoNotaFiscal.entrada;
+                  final valor = nf.valorTotal;
 
                   return Card(
                     margin: const EdgeInsets.only(bottom: 12),
@@ -140,7 +141,7 @@ class NotasFiscaisScreen extends StatelessWidget {
                         ),
                       ),
                       title: Text(
-                        'NF ${nf['numero']} - Série ${nf['serie']}',
+                        'NF ${nf.numero} - Série ${nf.serie}',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
@@ -151,14 +152,14 @@ class NotasFiscaisScreen extends StatelessWidget {
                         children: [
                           const SizedBox(height: 4),
                           Text(
-                            formatDate.format(DateTime.parse(nf['data_emissao'])),
+                            formatDate.format(nf.dataEmissao),
                             style: const TextStyle(fontSize: 12),
                           ),
                           const SizedBox(height: 2),
                           Text(
                             isEntrada
-                                ? 'Para: ${nf['destinatario']}'
-                                : 'De: ${nf['emitente']}',
+                                ? 'Para: ${nf.cnpjDestinatario ?? 'N/A'}'
+                                : 'De: ${nf.razaoSocialEmitente}',
                             style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -172,33 +173,24 @@ class NotasFiscaisScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: isEntrada
-                                  ? AppColors.receita.withOpacity(0.1)
-                                  : AppColors.despesa.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              tipo,
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                                color: isEntrada ? AppColors.receita : AppColors.despesa,
-                              ),
+                          Text(
+                            nf.tipo.toString().split('.').last,
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: isEntrada ? AppColors.receita : AppColors.despesa,
                             ),
                           ),
                           const SizedBox(height: 4),
-                          Text(
-                            formatCurrency.format(valor),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: isEntrada ? AppColors.receita : AppColors.despesa,
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              formatCurrency.format(valor),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: isEntrada ? AppColors.receita : AppColors.despesa,
+                              ),
                             ),
                           ),
                         ],
@@ -209,12 +201,12 @@ class NotasFiscaisScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              _buildInfoRow('Emitente:', nf['emitente']),
-                              _buildInfoRow('Destinatário:', nf['destinatario']),
-                              _buildInfoRow('CNPJ:', nf['cnpj_destinatario']),
+                              _buildInfoRow('Emitente:', nf.razaoSocialEmitente),
+                              _buildInfoRow('CNPJ Emitente:', nf.cnpjEmitente),
+                              _buildInfoRow('Destinatário:', nf.cnpjDestinatario ?? 'N/A'),
                               _buildInfoRow(
                                 'Chave de Acesso:',
-                                nf['chave_acesso'],
+                                nf.chaveAcesso ?? 'N/A',
                                 mono: true,
                               ),
                               const SizedBox(height: 16),
@@ -237,11 +229,7 @@ class NotasFiscaisScreen extends StatelessWidget {
                                   Expanded(
                                     child: ElevatedButton.icon(
                                       onPressed: () {
-                                        Get.snackbar(
-                                          'Em desenvolvimento',
-                                          'Editar nota fiscal',
-                                          snackPosition: SnackPosition.BOTTOM,
-                                        );
+                                        Get.to(() => NotaFiscalForm(notaFiscal: nf));
                                       },
                                       icon: const Icon(Icons.edit, size: 18),
                                       label: const Text('Editar'),
@@ -263,11 +251,7 @@ class NotasFiscaisScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Get.snackbar(
-            'Em desenvolvimento',
-            'Lançar nota fiscal manual',
-            snackPosition: SnackPosition.BOTTOM,
-          );
+          Get.to(() => const NotaFiscalForm());
         },
         icon: const Icon(Icons.add),
         label: const Text('Nova NF'),

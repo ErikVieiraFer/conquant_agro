@@ -1,3 +1,4 @@
+import 'package:conquant_agro/presentation/screens/administrativo/forms/despesa_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -76,9 +77,9 @@ class DespesasScreen extends StatelessWidget {
                 itemCount: despesas.length,
                 itemBuilder: (context, index) {
                   final despesa = despesas[index];
-                  final valor = despesa['valor'] as double;
-                  final conciliado = despesa['conciliado'] as bool;
-                  final finalidade = despesa['finalidade'] as String;
+                  final valor = despesa.valor;
+                  final conciliado = despesa.conciliado;
+                  final finalidade = despesa.finalidade.toString().split('.').last;
 
                   return Card(
                     margin: const EdgeInsets.only(bottom: 12),
@@ -92,7 +93,7 @@ class DespesasScreen extends StatelessWidget {
                         ),
                       ),
                       title: Text(
-                        despesa['descricao'],
+                        despesa.descricao,
                         style: const TextStyle(fontWeight: FontWeight.w500),
                       ),
                       subtitle: Column(
@@ -100,7 +101,7 @@ class DespesasScreen extends StatelessWidget {
                         children: [
                           const SizedBox(height: 4),
                           Text(
-                            formatDate.format(DateTime.parse(despesa['data'])),
+                            formatDate.format(despesa.data),
                             style: const TextStyle(fontSize: 12),
                           ),
                           const SizedBox(height: 2),
@@ -116,7 +117,7 @@ class DespesasScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                                 child: Text(
-                                  despesa['natureza'],
+                                  despesa.natureza,
                                   style: const TextStyle(
                                     fontSize: 10,
                                     color: AppColors.primary,
@@ -179,11 +180,7 @@ class DespesasScreen extends StatelessWidget {
                         ],
                       ),
                       onTap: () {
-                        Get.snackbar(
-                          'Em desenvolvimento',
-                          'Editar despesa',
-                          snackPosition: SnackPosition.BOTTOM,
-                        );
+                        Get.to(() => DespesaForm(despesa: despesa));
                       },
                     ),
                   );
@@ -195,11 +192,7 @@ class DespesasScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Get.snackbar(
-            'Em desenvolvimento',
-            'Adicionar nova despesa',
-            snackPosition: SnackPosition.BOTTOM,
-          );
+          Get.to(() => const DespesaForm());
         },
         icon: const Icon(Icons.add),
         label: const Text('Nova Despesa'),
@@ -209,11 +202,11 @@ class DespesasScreen extends StatelessWidget {
 
   IconData _getIconeFinalidade(String finalidade) {
     switch (finalidade) {
-      case 'CUSTO':
+      case 'custo':
         return Icons.attach_money;
-      case 'ALMOXARIFADO':
+      case 'almoxarifado':
         return Icons.inventory;
-      case 'FLUXO_CAIXA':
+      case 'fluxoCaixa':
         return Icons.account_balance_wallet;
       default:
         return Icons.receipt_long;
