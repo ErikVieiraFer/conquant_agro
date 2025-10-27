@@ -87,6 +87,14 @@ class CustomDrawer extends StatelessWidget {
                   },
                 ),
                 _buildMenuItem(
+                  icon: Icons.account_balance,
+                  title: 'Extrato Bancário',
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(AppRoutes.extratoBancario);
+                  },
+                ),
+                _buildMenuItem(
                   icon: Icons.account_balance_wallet,
                   title: 'Fluxo de Caixa',
                   onTap: () {
@@ -130,6 +138,86 @@ class CustomDrawer extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Text(
+                    'MANEJO',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                _buildMenuItem(
+                  icon: Icons.pets,
+                  title: 'Gados',
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(AppRoutes.gados);
+                  },
+                ),
+                _buildMenuItem(
+                  icon: Icons.grass,
+                  title: 'Pastos',
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(AppRoutes.pastos);
+                  },
+                ),
+                _buildMenuItem(
+                  icon: Icons.compare_arrows,
+                  title: 'Movimentações',
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(AppRoutes.movimentacoes);
+                  },
+                ),
+                _buildMenuItem(
+                  icon: Icons.favorite,
+                  title: 'Cruzamentos',
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(AppRoutes.cruzamentos);
+                  },
+                ),
+                _buildMenuItem(
+                  icon: Icons.history,
+                  title: 'Categorias de Histórico',
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(AppRoutes.categoriasHistorico);
+                  },
+                ),
+                const Divider(),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Text(
+                    'PESAGEM',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                _buildMenuItem(
+                  icon: Icons.scale,
+                  title: 'Grupos de Pesagem',
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(AppRoutes.pesagensGrupos);
+                  },
+                ),
+                _buildMenuItem(
+                  icon: Icons.scale,
+                  title: 'Pesagens',
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(AppRoutes.pesagem);
+                  },
+                ),
+                const Divider(),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Text(
                     'CONFIGURAÇÕES',
                     style: TextStyle(
                       fontSize: 12,
@@ -152,6 +240,22 @@ class CustomDrawer extends StatelessWidget {
                   onTap: () {
                     Get.back();
                     Get.toNamed(AppRoutes.propriedades);
+                  },
+                ),
+                _buildMenuItem(
+                  icon: Icons.groups,
+                  title: 'Clientes',
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(AppRoutes.clientes);
+                  },
+                ),
+                _buildMenuItem(
+                  icon: Icons.policy,
+                  title: 'Auditoria',
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(AppRoutes.auditoria);
                   },
                 ),
               ],

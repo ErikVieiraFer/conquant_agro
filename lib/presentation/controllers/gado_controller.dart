@@ -21,4 +21,24 @@ class GadoController extends GetxController {
       isLoading.value = false;
     }
   }
+
+  Future<void> addGado(Gado gado) async {
+    try {
+      isLoading.value = true;
+      await _repository.addGado(gado);
+      fetchGados();
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> updateGado(Gado gado) async {
+    try {
+      isLoading.value = true;
+      await _repository.updateGado(gado);
+      fetchGados();
+    } finally {
+      isLoading.value = false;
+    }
+  }
 }
