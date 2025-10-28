@@ -134,6 +134,14 @@ class CustomDrawer extends StatelessWidget {
                     Get.toNamed(AppRoutes.almoxarifado);
                   },
                 ),
+                _buildMenuItem(
+                  icon: Icons.assessment,
+                  title: 'Relatórios',
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed(AppRoutes.relatorios);
+                  },
+                ),
                 const Divider(),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),

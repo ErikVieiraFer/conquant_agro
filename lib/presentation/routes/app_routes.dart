@@ -10,6 +10,7 @@ abstract class AppRoutes {
   static const extratoBancario = '/extrato-bancario';
   static const almoxarifado = '/almoxarifado';
   static const auditoria = '/auditoria';
+  static const relatorios = '/relatorios';
   static const despesaForm = '/despesa-form';
   static const transacaoForm = '/transacao-form';
   static const notaFiscalForm = '/nota-fiscal-form';

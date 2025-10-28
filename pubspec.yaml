@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   
   # State Management
   get: ^4.6.6
@@ -33,13 +35,13 @@ dependencies:
   printing: ^5.11.1
   
   # File Handling
-  file_picker: ^6.1.1
+  file_picker: ^10.3.3
   
   # Permissions
   permission_handler: ^11.1.0
   
   # Utils
-  intl: ^0.19.0
+  intl: ^0.20.2
   dropdown_search: ^5.0.6
   uuid: ^4.3.3
 
@@ -54,5 +56,3 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/
-    - assets/icons/

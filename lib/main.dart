@@ -44,6 +44,7 @@ import 'package:conquant_agro/presentation/screens/zoosanitario/aplicacoes_scree
 import 'package:conquant_agro/presentation/screens/zoosanitario/forms/aplicacao_form.dart';
 import 'package:conquant_agro/presentation/screens/zoosanitario/medicamentos_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'core/theme/app_theme.dart';
 import 'presentation/controllers/auth_controller.dart';
@@ -55,21 +56,22 @@ import 'presentation/screens/administrativo/despesas_screen.dart';
 import 'presentation/screens/administrativo/notas_fiscais_screen.dart';
 import 'presentation/screens/administrativo/conciliacao_screen.dart';
 import 'presentation/screens/administrativo/almoxarifado_screen.dart';
+import 'presentation/screens/administrativo/relatorios_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Inicializar controllers
-  Get.put(AuthController(), permanent: true);
+  Get.put(AuthController());
   Get.lazyPut(() => AlmoxarifadoController());
   Get.lazyPut(() => AuditoriaController());
   Get.lazyPut(() => CategoriaHistoricoController());
   Get.lazyPut(() => ClienteController());
   Get.lazyPut(() => FinanceiroController());
-  Get.lazyPut(() => GadoController());
+  Get.put(GadoController());
   Get.lazyPut(() => ManejoController());
-  Get.lazyPut(() => MovimentacaoController());
-  Get.lazyPut(() => PastoController());
+  Get.put(MovimentacaoController());
+  Get.put(PastoController());
   Get.lazyPut(() => PesagemController());
   Get.lazyPut(() => PesagemGrupoController());
   Get.lazyPut(() => PropriedadeController());
@@ -89,6 +91,15 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
       initialRoute: AppRoutes.login,
+      locale: const Locale('pt', 'BR'),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('pt', 'BR'),
+      ],
       getPages: [
         GetPage(name: AppRoutes.login, page: () => const LoginScreen()),
         GetPage(name: AppRoutes.home, page: () => const HomeScreen()),
@@ -107,6 +118,8 @@ class MyApp extends StatelessWidget {
             name: AppRoutes.almoxarifado,
             page: () => const AlmoxarifadoScreen()),
         GetPage(name: AppRoutes.auditoria, page: () => const AuditoriaScreen()),
+        GetPage(
+            name: AppRoutes.relatorios, page: () => const RelatoriosScreen()),
         GetPage(name: AppRoutes.despesaForm, page: () => const DespesaForm()),
         GetPage(
             name: AppRoutes.transacaoForm, page: () => const TransacaoForm()),
