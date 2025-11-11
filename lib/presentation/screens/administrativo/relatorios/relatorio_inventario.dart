@@ -42,9 +42,9 @@ class RelatorioInventario extends StatelessWidget {
             return Card(
               child: ListTile(
                 leading: CircleAvatar(
-                  child: Text(gado.brinco.substring(0, 1)),
+                  child: Text(gado.idUsual.substring(0, 1)),
                 ),
-                title: Text('Brinco: ${gado.brinco}'),
+                title: Text('ID: ${gado.idUsual}'),
                 subtitle: Text('Raça: ${gado.raca}\nIdade: $idade'),
                 trailing: Text(
                   formatDate.format(gado.dataNascimento),
@@ -88,7 +88,7 @@ class RelatorioInventario extends StatelessWidget {
     }
 
     final dados = gados.map((g) => [
-      g.brinco,
+      g.idUsual,
       g.raca,
       format.format(g.dataNascimento),
       _calcularIdade(g.dataNascimento),
@@ -97,7 +97,7 @@ class RelatorioInventario extends StatelessWidget {
     await PdfService.gerarRelatorio(
       titulo: 'Relatório de Inventário',
       subtitulo: 'Total de animais: ${gados.length}',
-      colunas: ['Brinco', 'Raça', 'Data Nascimento', 'Idade'],
+      colunas: ['ID', 'Raça', 'Data Nascimento', 'Idade'],
       dados: dados,
     );
   }

@@ -94,7 +94,7 @@ class DashboardFinanceiroScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withAlpha((255 * 0.05).round()),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -200,9 +200,9 @@ class DashboardFinanceiroScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: AppColors.info.withOpacity(0.1),
+                color: AppColors.info.withAlpha((255 * 0.1).round()),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: AppColors.info.withOpacity(0.3)),
+                border: Border.all(color: AppColors.info.withAlpha((255 * 0.3).round())),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -251,9 +251,9 @@ class DashboardFinanceiroScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: cor.withOpacity(0.1),
+        color: cor.withAlpha((255 * 0.1).round()),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: cor.withOpacity(0.3)),
+        border: Border.all(color: cor.withAlpha((255 * 0.3).round())),
       ),
       child: Column(
         crossAxisAlignment:
@@ -270,7 +270,7 @@ class DashboardFinanceiroScreen extends StatelessWidget {
                 titulo,
                 style: TextStyle(
                   fontSize: 13,
-                  color: cor.withOpacity(0.8),
+                  color: cor.withAlpha((255 * 0.8).round()),
                 ),
               ),
             ],

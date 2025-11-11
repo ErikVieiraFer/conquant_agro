@@ -17,20 +17,33 @@ class CustomDrawer extends StatelessWidget {
         children: [
           Obx(() {
             final usuario = authController.usuarioAtual.value;
-            final propriedade = authController.propriedadeAtual.value;
             return UserAccountsDrawerHeader(
               decoration: const BoxDecoration(
                 color: AppColors.primary,
               ),
-              accountName: Text(usuario?.nome ?? ''),
-              accountEmail: Text(usuario?.email ?? ''),
+              accountName: Text(
+                authController.propriedadeAtual.value?.nome ?? '',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              accountEmail: Text(
+                usuario?.nome ?? '',
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.white70,
+                ),
+              ),
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Text(
-                  usuario?.nome.substring(0, 1).toUpperCase() ?? '?',
-                  style: const TextStyle(
-                    fontSize: 32,
-                    color: AppColors.primary,
+                backgroundColor: Colors.white, // Cor de fundo do CircleAvatar
+                child: ClipOval(
+                  child: Image.asset(
+                    'assets/icons/ConOuant icon.png',
+                    fit: BoxFit.cover, // Ajuste o fit conforme necessário
+                    width: 90, // Defina um tamanho para o CircleAvatar
+                    height: 90,
                   ),
                 ),
               ),

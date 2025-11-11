@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../../core/utils/formatters.dart';
 
 class CustomDatePicker extends StatefulWidget {
@@ -53,6 +52,12 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           firstDate: widget.firstDate ?? DateTime(2000),
           lastDate: widget.lastDate ?? DateTime(2101),
           locale: const Locale('pt', 'BR'),
+          builder: (BuildContext context, Widget? child) {
+            return Theme(
+              data: Theme.of(context),
+              child: child!,
+            );
+          },
         );
 
         if (pickedDate != null) {

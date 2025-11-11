@@ -36,9 +36,9 @@ class ExtratoBancarioScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 margin: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
+                  color: AppColors.primary.withAlpha((255 * 0.1).round()),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppColors.primary.withOpacity(0.3)),
+                  border: Border.all(color: AppColors.primary.withAlpha((255 * 0.3).round())),
                 ),
                 child: Column(
                   children: [
@@ -86,8 +86,8 @@ class ExtratoBancarioScreen extends StatelessWidget {
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: isReceita
-                            ? AppColors.receita.withOpacity(0.1)
-                            : AppColors.despesa.withOpacity(0.1),
+                            ? AppColors.receita.withAlpha((255 * 0.1).round())
+                            : AppColors.despesa.withAlpha((255 * 0.1).round()),
                         child: Icon(
                           isReceita ? Icons.arrow_upward : Icons.arrow_downward,
                           color: isReceita ? AppColors.receita : AppColors.despesa,

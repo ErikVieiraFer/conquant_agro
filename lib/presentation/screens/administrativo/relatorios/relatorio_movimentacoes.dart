@@ -59,7 +59,7 @@ class RelatorioMovimentacoes extends StatelessWidget {
                 leading: const CircleAvatar(
                   child: Icon(Icons.swap_horiz),
                 ),
-                title: Text('Brinco: ${gado?.brinco ?? 'N/A'}'),
+                title: Text('ID: ${gado?.idUsual ?? 'N/A'}'),
                 subtitle: Text(
                   'De: ${pastoOrigem?.nome ?? 'N/A'}\nPara: ${pastoDestino?.nome ?? 'N/A'}',
                 ),
@@ -107,7 +107,7 @@ class RelatorioMovimentacoes extends StatelessWidget {
 
       return [
         format.format(mov.data),
-        gado?.brinco ?? 'N/A',
+        gado?.idUsual ?? 'N/A',
         pastoOrigem?.nome ?? 'N/A',
         pastoDestino?.nome ?? 'N/A',
       ];

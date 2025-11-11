@@ -1,16 +1,13 @@
-import 'package:conquant_agro/presentation/controllers/cliente_controller.dart';
-import 'package:conquant_agro/presentation/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-
+import '../../controllers/cliente_controller.dart';
+import '../../routes/app_routes.dart';
 class ClientesScreen extends StatelessWidget {
   const ClientesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ClienteController());
-    final formatDate = DateFormat('dd/MM/yyyy');
 
     return Scaffold(
       appBar: AppBar(

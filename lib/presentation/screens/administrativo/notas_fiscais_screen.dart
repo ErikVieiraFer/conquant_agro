@@ -72,7 +72,7 @@ class NotasFiscaisScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withAlpha((255 * 0.05).round()),
                       blurRadius: 4,
                       offset: const Offset(0, 2),
                     ),
@@ -132,8 +132,8 @@ class NotasFiscaisScreen extends StatelessWidget {
                     child: ExpansionTile(
                       leading: CircleAvatar(
                         backgroundColor: isEntrada
-                            ? AppColors.receita.withOpacity(0.1)
-                            : AppColors.despesa.withOpacity(0.1),
+                            ? AppColors.receita.withAlpha((255 * 0.1).round())
+                            : AppColors.despesa.withAlpha((255 * 0.1).round()),
                         child: Icon(
                           isEntrada ? Icons.call_received : Icons.call_made,
                           color: isEntrada ? AppColors.receita : AppColors.despesa,

@@ -35,9 +35,9 @@ class DespesasScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 margin: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppColors.despesa.withOpacity(0.1),
+                  color: AppColors.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppColors.despesa.withOpacity(0.3)),
+                  border: Border.all(color: AppColors.primary.withOpacity(0.3)),
                 ),
                 child: Column(
                   children: [
@@ -54,7 +54,7 @@ class DespesasScreen extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.despesa,
+                        color: AppColors.primary,
                       ),
                     ),
                   ],
@@ -85,10 +85,10 @@ class DespesasScreen extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: 12),
                     child: ListTile(
                       leading: CircleAvatar(
-                        backgroundColor: AppColors.despesa.withOpacity(0.1),
+                        backgroundColor: AppColors.primary.withOpacity(0.1),
                         child: Icon(
                           _getIconeFinalidade(finalidade),
-                          color: AppColors.despesa,
+                          color: AppColors.primary,
                           size: 20,
                         ),
                       ),
@@ -107,38 +107,42 @@ class DespesasScreen extends StatelessWidget {
                           const SizedBox(height: 2),
                           Row(
                             children: [
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 2,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: AppColors.primary.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  despesa.natureza,
-                                  style: const TextStyle(
-                                    fontSize: 10,
-                                    color: AppColors.primary,
+                              Flexible(
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 2,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
+                                    despesa.natureza,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: AppColors.textPrimary,
+                                    ),
                                   ),
                                 ),
                               ),
                               const SizedBox(width: 8),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 2,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.blue.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  finalidade,
-                                  style: const TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.blue,
+                              Flexible(
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 2,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
+                                    finalidade,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: AppColors.textPrimary,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -155,7 +159,7 @@ class DespesasScreen extends StatelessWidget {
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: AppColors.despesa,
+                              color: AppColors.textPrimary,
                             ),
                           ),
                           if (conciliado)
@@ -166,14 +170,14 @@ class DespesasScreen extends StatelessWidget {
                                 vertical: 2,
                               ),
                               decoration: BoxDecoration(
-                                color: AppColors.success.withOpacity(0.1),
+                                color: Colors.grey.withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: const Text(
                                 'Conciliado',
                                 style: TextStyle(
-                                  fontSize: 9,
-                                  color: AppColors.success,
+                                  fontSize: 10,
+                                  color: AppColors.textPrimary,
                                 ),
                               ),
                             ),

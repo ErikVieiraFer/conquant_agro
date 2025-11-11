@@ -46,7 +46,7 @@ class FluxoCaixaScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 margin: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [AppColors.primary, AppColors.primaryDark],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -54,7 +54,7 @@ class FluxoCaixaScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.primary.withOpacity(0.3),
+                      color: AppColors.primary.withAlpha((255 * 0.3).round()),
                       blurRadius: 8,
                       offset: const Offset(0, 4),
                     ),
@@ -65,16 +65,16 @@ class FluxoCaixaScreen extends StatelessWidget {
                   children: [
                     const Text(
                       'Saldo Acumulado',
-                      style: TextStyle(
-                        color: Colors.white70,
+                      style: TextStyle( // Use a cor do tema para texto sobre a cor primária
+                        color: Color.fromRGBO(255, 255, 255, 0.7),
                         fontSize: 14,
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       formatCurrency.format(controller.saldoTotal),
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle( // Use a cor do tema
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
                       ),
@@ -88,15 +88,15 @@ class FluxoCaixaScreen extends StatelessWidget {
                           children: [
                             const Text(
                               'Receitas',
-                              style: TextStyle(
-                                color: Colors.white70,
+                              style: TextStyle( // Use a cor do tema
+                                color: Color.fromRGBO(255, 255, 255, 0.7),
                                 fontSize: 12,
                               ),
                             ),
                             Text(
                               formatCurrency.format(controller.totalReceitas),
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle( // Use a cor do tema
+                                color: Theme.of(context).colorScheme.onPrimary,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -108,15 +108,15 @@ class FluxoCaixaScreen extends StatelessWidget {
                           children: [
                             const Text(
                               'Despesas',
-                              style: TextStyle(
-                                color: Colors.white70,
+                              style: TextStyle( // Use a cor do tema
+                                color: Color.fromRGBO(255, 255, 255, 0.7),
                                 fontSize: 12,
                               ),
                             ),
                             Text(
                               formatCurrency.format(controller.totalDespesas),
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle( // Use a cor do tema
+                                color: Theme.of(context).colorScheme.onPrimary,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -154,8 +154,8 @@ class FluxoCaixaScreen extends StatelessWidget {
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: isReceita
-                            ? AppColors.receita.withOpacity(0.1)
-                            : AppColors.despesa.withOpacity(0.1),
+                            ? AppColors.receita.withAlpha((255 * 0.1).round())
+                            : AppColors.despesa.withAlpha((255 * 0.1).round()),
                         child: Icon(
                           isReceita ? Icons.arrow_upward : Icons.arrow_downward,
                           color: isReceita ? AppColors.receita : AppColors.despesa,
@@ -188,7 +188,7 @@ class FluxoCaixaScreen extends StatelessWidget {
                                 vertical: 2,
                               ),
                               decoration: BoxDecoration(
-                                color: AppColors.success.withOpacity(0.1),
+                                color: AppColors.success.withAlpha((255 * 0.1).round()),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: const Text(

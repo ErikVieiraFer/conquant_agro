@@ -47,17 +47,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Logo/Nome do App
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: AppColors.primary,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.agriculture,
-                      size: 64,
-                      color: Colors.white,
-                    ),
+                  Image.asset(
+                    'assets/icons/ConOuant_boi.png',
+                    height: 120, // Ajuste o tamanho conforme necessário
                   ),
                   const SizedBox(height: 24),
                   
@@ -178,9 +170,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: AppColors.info.withOpacity(0.1),
+                      color: AppColors.info.withAlpha((255 * 0.1).round()),
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: AppColors.info.withOpacity(0.3)),
+                      border: Border.all(color: AppColors.info.withAlpha((255 * 0.3).round())),
                     ),
                     child: const Column(
                       children: [

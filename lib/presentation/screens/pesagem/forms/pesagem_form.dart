@@ -42,7 +42,7 @@ class _PesagemFormState extends State<PesagemForm> {
         // Adicionar nova pesagem
         final novaPesagem = Pesagem(
           id: const Uuid().v4(),
-          gadoId: _selectedGado!.id,
+          gadoId: _selectedGado!.id ?? '',
           data: _data,
           peso: double.parse(_pesoController.text),
         );
@@ -51,7 +51,7 @@ class _PesagemFormState extends State<PesagemForm> {
         // Editar pesagem existente
         final pesagemEditada = Pesagem(
           id: pesagem!.id,
-          gadoId: _selectedGado!.id,
+          gadoId: _selectedGado!.id ?? '',
           data: _data,
           peso: double.parse(_pesoController.text),
         );
@@ -81,7 +81,7 @@ class _PesagemFormState extends State<PesagemForm> {
                   _selectedGado = gado;
                 });
               },
-              itemAsString: (gado) => gado.brinco,
+              itemAsString: (gado) => gado.idUsual,
               validator: (gado) {
                 if (gado == null) {
                   return 'Selecione um gado.';

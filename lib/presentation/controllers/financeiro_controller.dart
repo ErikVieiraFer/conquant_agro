@@ -2,6 +2,8 @@ import 'package:conquant_agro/data/models/nota_fiscal.dart';
 import 'package:conquant_agro/data/models/transacao.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
+import 'package:intl/intl.dart'; // Importar DateFormat
+import '../screens/administrativo/widgets/fluxo_caixa_chart.dart'; // Importar FluxoCaixaData
 import '../../data/mock/mock_data.dart';
 import '../../data/models/despesa.dart';
 import '../../data/models/natureza.dart';
@@ -193,42 +195,133 @@ class FinanceiroController extends GetxController {
     return lista;
   }
   
-  List<Despesa> get despesasFiltradas {
-    var lista = despesas.toList();
-    
-    if (showApenasPendentes.value) {
-      lista = lista.where((d) => d.conciliado == false).toList();
+    List<Despesa> get despesasFiltradas {
+  
+      var lista = despesas.toList();
+  
+      
+  
+      if (showApenasPendentes.value) {
+  
+        lista = lista.where((d) => d.conciliado == false).toList();
+  
+      }
+  
+      
+  
+      return lista;
+  
     }
-    
-    return lista;
-  }
   
-  List<NotaFiscal> get notasFiscaisFiltradas {
-    var lista = notasFiscais.toList();
     
-    if (filtroTipo.value != 'TODOS') {
-      lista = lista.where((nf) => nf.tipo.toString().split('.').last == filtroTipo.value).toList();
+  
+    List<NotaFiscal> get notasFiscaisFiltradas {
+  
+      var lista = notasFiscais.toList();
+  
+      
+  
+      if (filtroTipo.value != 'TODOS') {
+  
+        lista = lista.where((nf) => nf.tipo.toString().split('.').last == filtroTipo.value).toList();
+  
+      }
+  
+      
+  
+      if (showApenasPendentes.value) {
+  
+        lista = lista.where((nf) => nf.conciliado == false).toList();
+  
+      }
+  
+      
+  
+      return lista;
+  
     }
+  
     
-    if (showApenasPendentes.value) {
-      lista = lista.where((nf) => nf.conciliado == false).toList();
+  
+    // Cálculos
+  
+    double get saldoTotal {
+  
+      return transacoes.fold(0.0, (sum, t) => sum + t.valor);
+  
     }
+  
     
-    return lista;
-  }
   
-  // Cálculos
-  double get saldoTotal {
-    return transacoes.fold(0.0, (sum, t) => sum + t.valor);
-  }
+    double get totalDespesas {
   
-  double get totalDespesas {
-    return despesas.fold(0.0, (sum, d) => sum + d.valor);
-  }
+      return despesas.fold(0.0, (sum, d) => sum + d.valor);
   
-  double get totalReceitas {
-    return transacoes
-        .where((t) => t.tipo == TipoTransacao.receita)
-        .fold(0.0, (sum, t) => sum + t.valor);
-  }
-}
+    }
+  
+    
+  
+    double get totalReceitas {
+  
+      return transacoes
+  
+          .where((t) => t.tipo == TipoTransacao.receita)
+  
+          .fold(0.0, (sum, t) => sum + t.valor);
+  
+        }
+    
+      List<FluxoCaixaData> get dadosFluxoCaixaMensal {
+        final Map<String, FluxoCaixaData> fluxoCaixaMap = {};
+    
+        // Processar transações
+        for (var transacao in transacoes) {
+          final mes = DateFormat('yyyy-MM').format(transacao.data);
+                fluxoCaixaMap.putIfAbsent(
+                    mes,
+                    () => FluxoCaixaData(
+                          mes: mes,
+                          entradasProg: 0,
+                          entradasPrev: 0,
+                          saidasProg: 0,
+                          saidasPrev: 0,
+                          saldoPrev: 0,
+                        ));
+          
+                if (transacao.tipo == TipoTransacao.receita) {
+                  if (transacao.conciliado) {
+                    fluxoCaixaMap[mes]!.entradasProg += transacao.valor;
+                  } else {
+                    fluxoCaixaMap[mes]!.entradasPrev += transacao.valor;
+                  }
+                } else {
+                  // Considerar despesas da lista de transações
+                  if (transacao.conciliado) {
+                    fluxoCaixaMap[mes]!.saidasProg += transacao.valor.abs();
+                  } else {
+                    fluxoCaixaMap[mes]!.saidasPrev += transacao.valor.abs();
+                  }
+                }
+              }    
+        // Ordenar por mês e calcular saldo acumulado
+        final List<FluxoCaixaData> dadosOrdenados = fluxoCaixaMap.values.toList()
+          ..sort((a, b) => a.mes.compareTo(b.mes));
+    
+        double saldoAcumulado = 0;
+        for (int i = 0; i < dadosOrdenados.length; i++) {
+          final item = dadosOrdenados[i];
+          saldoAcumulado += (item.entradasProg + item.entradasPrev) -
+              (item.saidasProg + item.saidasPrev);
+          dadosOrdenados[i] = FluxoCaixaData(
+            mes: item.mes,
+            entradasProg: item.entradasProg,
+            entradasPrev: item.entradasPrev,
+            saidasProg: item.saidasProg,
+            saidasPrev: item.saidasPrev,
+            saldoPrev: saldoAcumulado,
+          );
+        }
+    
+        return dadosOrdenados;
+      }
+    }

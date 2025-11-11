@@ -2,6 +2,7 @@ import 'package:conquant_agro/presentation/controllers/almoxarifado_controller.d
 import 'package:conquant_agro/presentation/controllers/auditoria_controller.dart';
 import 'package:conquant_agro/presentation/controllers/categoria_historico_controller.dart';
 import 'package:conquant_agro/presentation/controllers/cliente_controller.dart';
+import 'package:conquant_agro/presentation/controllers/conciliacao_controller.dart';
 import 'package:conquant_agro/presentation/controllers/financeiro_controller.dart';
 import 'package:conquant_agro/presentation/controllers/gado_controller.dart';
 import 'package:conquant_agro/presentation/controllers/manejo_controller.dart';
@@ -67,11 +68,12 @@ void main() async {
   Get.lazyPut(() => AuditoriaController());
   Get.lazyPut(() => CategoriaHistoricoController());
   Get.lazyPut(() => ClienteController());
+  Get.lazyPut(() => ConciliacaoController());
   Get.lazyPut(() => FinanceiroController());
-  Get.put(GadoController());
+  Get.lazyPut(() => GadoController(), fenix: true);
   Get.lazyPut(() => ManejoController());
-  Get.put(MovimentacaoController());
-  Get.put(PastoController());
+  Get.lazyPut(() => MovimentacaoController(), fenix: true);
+  Get.lazyPut(() => PastoController(), fenix: true);
   Get.lazyPut(() => PesagemController());
   Get.lazyPut(() => PesagemGrupoController());
   Get.lazyPut(() => PropriedadeController());
